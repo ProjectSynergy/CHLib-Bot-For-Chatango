@@ -2,12 +2,35 @@ import chlib
 import json
 import random
 import re
+import time
 import urllib.request as urlreq
+
+groups = []
+f = open("filesystem/groupvariables/groups.txt", "r")
+print("[INFO][DATA]Loading Room list...")
+time.sleep(1)
+for name in f.readlines():
+    if len(name.strip())>0: groups.append(name.strip())
+    f.close()
+    print("Rooms successfully loaded...")
+
+nicks = dict() 
+f = open("filesystem/groupvariables/nicks.txt", "r") # read-only
+print("[INFO][DATA]Loading Nicknames...")
+time.sleep(1)
+for line in f.readlines():
+  try:
+    if len(line.strip())>0:
+      user, nick= json.loads(line.strip())
+      nicks[user] = json.dumps(nick)
+  except:
+    print("[ERROR]Cant load nick: %s" % line)
+f.close()
+print("Nicknames successfully Loaded...")
 
 class Bot(chlib.ConnectionManager):
                                 
                                 def start(self):
-                                                groups = [ "AddYourGroupHere" ] #Simple way of adding groups. You could also define it by loading from a text file.
                                                 for group in groups:
                                                                 self.addGroup(group)
                                                 self.prefix = "!" #optional, just won't call any commands if not specified. EDIT: Not Needed as the prefix is loaded in recvPost instead.
@@ -57,6 +80,21 @@ class Bot(chlib.ConnectionManager):
                                                                                                         cmd, args = data[0], ""
                                                                                   if cmd == "say" and len(args) > 0:
                                                                                                         group.sendPost(args)
+                                                                                  if cmd == "yt" and len(args) > 0:
+                                                                                                        search = args.split()
+                                                                                                        url = urlreq.urlopen("https://www.googleapis.com/youtube/v3/search?q=%s&part=snippet&MaxResults=1&key=AddYourDataAPIKeyHere" % "+".join(search))
+                                                                                                        udict = url.read().decode('utf-8')
+                                                                                                        data = json.loads(udict)
+                                                                                                        rest = []
+                                                                                                        for f in data["items"]:
+                                                                                                                rest.append(f)
+                                                                                                        d = random.choice(rest)
+                                                                                                        link = "http://www.youtube.com/watch?v=" + d["id"]["videoId"]
+                                                                                                        videoid = d["id"]["videoId"]
+                                                                                                        title = d["snippet"]["title"]
+                                                                                                        uploader = d["snippet"]["channelTitle"]
+                                                                                                        group.sendPost("I found: "+link+" <b>"+title+"</b> Posted By: "+uploader+"")
+                                                                                                        return
                                                                                   if cmd == "img" or cmd == "gis" and len(args) > 0:
                                                                                                         try:
                                                                                                                 search = args.replace(" ","_")
@@ -72,11 +110,6 @@ class Bot(chlib.ConnectionManager):
                                                                                                                 group.sendPost('%s' % link)
                                                                                                         except Exception as e:
                                                                                                                 print("\n%s\n" % e)
-                                                                                  if cmd == "oppai":
-                                                                                                        if group.getAuth(user) > 0:
-                                                                                                                        group.sendPost("Oppai ^_^ https://33.media.tumblr.com/4667338fc807af5041e159ed1b7bcfbd/tumblr_mv1busrDhz1sivh5go1_500.gif //nosebleeds//")
-                                                                                                        else:
-                                                                                                                        group.sendPost("I see no Oppai Here :|+50")
                                                                                   if cmd == "baka":
                                                                                                         group.sendPost("https://www.youtube.com/watch?v=diI4arYYfW0")
                                                                                   if cmd == "join" and len(args) > 0:
@@ -124,9 +157,7 @@ class Bot(chlib.ConnectionManager):
                                                         self.sendPM(user, "Yesh? o.o")
                                                 if pm.startswith("sup?"):
                                                         self.sendPM(user, "Nothing much, You?")
-                                                if pm.startswith("blake"):
-                                                        self.sendPM(user, "Fuck blake. He's a homeless Nigger")
-                                                if pm.startswith(".") or pm.startswith("b"):
+                                                if pm.startswith("."):
                                                         data = pm[1:].split(" ", 1)
                                                         if len(data) > 1:
                                                                         cmd, args = data[0], data[1]
