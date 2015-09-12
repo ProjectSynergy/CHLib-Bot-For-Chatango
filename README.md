@@ -4,10 +4,8 @@ My take on a simple to use bot for chatango. This is my base source code only. N
 Update Log:
       Added Youtube Command To Source code. You still need your own API Key for Youtube v3 to use the command
       Fixed a glitch where posts were being ignored. This was due to a bug in the prefix code and thew bot trying to use the old prefix
-      Added a guess the number game. This would be fun for most users of the bot.
       
 To do list:
-      Get the guess the number game to pick a truly random number between each set of numbers. For example. 1 - 10, 1 - 100, 1 - 1000 etc
       Add a money ranking system.
       Add XP and Leaderboards
       Add a bot personality
