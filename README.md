@@ -3,7 +3,7 @@ My take on a simple to use bot for chatango. This is my base source code only. N
 
 Update Log:<br>
       Added Youtube Command To Source code. You still need your own API Key for Youtube v3 to use the command<br>
-      Fixed a glitch where posts were being ignored. This was due to a bug in the prefix code and thew bot trying to use the old prefix<br>
+      Fixed a glitch where posts were being ignored. This was due to a bug in the prefix code and the bot trying to use the old prefix<br>
       
 To do list:<br>
       Add a money ranking system.<br>
