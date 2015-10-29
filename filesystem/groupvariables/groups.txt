@@ -1,1 +1,1 @@
-justarandomplaceyo
+Add your groups here. If you wanted the bot to create a new line and auto add the group, You would need to open and append the file with the new group on a new line.
