@@ -289,5 +289,5 @@ class Bot(chlib.ConnectionManager):
                                                 self.addGroup(group.name)
 
 if __name__ == "__main__": #no easy starting this time ;D
-                                bot = Bot(user = "ayytron", password = "D3vModding", pm = True)
+                                bot = Bot(user = "", password = "", pm = True)
                                 bot.main()
