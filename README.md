@@ -5,12 +5,11 @@ Update Log:<br>
       Added Youtube Command To Source code. You still need your own API Key for Youtube v3 to use the command<br>
       Fixed a glitch where posts were being ignored. This was due to a bug in the prefix code and the bot trying to use the old prefix<br>
       Added A new system of ranking, users now have levels, money and xp<br>
+      Added levels, definitions, new Google Image API<br>
       
 To do list:<br>
-      Add a way for the bot to detect when the user can level up<br>
       Add Leaderboards<br>
       Add a bot personality<br>
-      Set up definitions<br>
       Allow the bot to use xmpp<br>
       Give the bot a way to use notification messages for use with lottery, notes between friends, etc.<br>
       Russian Roulette game mode<br>
