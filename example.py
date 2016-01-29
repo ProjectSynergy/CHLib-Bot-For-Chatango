@@ -14,6 +14,22 @@ for name in f.readlines():
 f.close()
 print("Rooms successfully loaded...")
 
+#definitions
+dictionary = dict() #This is a copy paste of Botteh's definitions. The command is also a copy. Works fine but i'm not releasing mine
+f = open("filesystem/groupvariables/definitions.txt", "r") # read-only
+print("[INF]Loading Definitions...")
+soundz("info")
+time.sleep(1)
+for line in f.readlines():
+	try:
+		if len(line.strip())>0:
+			word, definition, name = json.loads(line.strip())
+			dictionary[word] = json.dumps([definition, name])
+	except:
+		print("[ERR]Cant load definition: %s" % line)
+f.close()
+print('Definitions Loaded')
+
 whitelist = []
 f = open("filesystem/groupvariables/whitelist.txt", "r")
 print("[INFO][DATA]Loading Whitelist...")
@@ -113,6 +129,59 @@ class Bot(chlib.ConnectionManager):
                                                         print("User added to ranks successfully")
                                                     else:
                                                         print("Failed to add user to money")
+                                                def LevelUp():
+                                                      if user in ranks:
+                                                          exp,lvl,money = json.loads(ranks[user])
+                                                          if exp > 1250 and lvl == 1:
+                                                              lvl = 2
+                                                              group.sendPost('You Leveled Up To Level 2!')
+                                                              ranks[user] = json.dumps([exp,lvl,money])
+                                                          elif exp > 1750 and lvl == 2:
+                                                              lvl = 3
+                                                              group.sendPost('You levelled Up To Level 3!')
+                                                              ranks[user] = json.dumps([exp,lvl,money])
+                                                          elif exp > 2500 and lvl == 3:
+                                                              lvl = 4
+                                                              group.sendPost('You levelled Up To Level 4!')
+                                                              ranks[user] = json.dumps([exp,lvl,money])
+                                                          elif exp > 7000 and lvl == 4:
+                                                              lvl = 5
+                                                              group.sendPost('You Levelled Up To Level 5!')
+                                                              ranks[user] = json.dumps([exp,lvl,money])
+                                                          elif exp > 10500 and lvl == 5:
+                                                              lvl = 6
+                                                              group.sendPost('You Leveled Up To Level 6!')
+                                                              ranks[user] = json.dumps([exp,lvl,money])
+                                                          elif exp > 15000 and lvl == 6:
+                                                              lvl = 7
+                                                              group.sendPost('You levelled Up To Level 7!')
+                                                              ranks[user] = json.dumps([exp,lvl,money])
+                                                          elif exp > 25000 and lvl == 7:
+                                                                  lvl = 8
+                                                                  group.sendPost('You levelled Up To Level 8!')
+                                                                  ranks[user] = json.dumps([exp,lvl,money])
+                                                          elif exp > 37500 and lvl == 8:
+                                                                  lvl = 9
+                                                                  group.sendPost('You Levelled Up To Level 9!')
+                                                                  ranks[user] = json.dumps([exp,lvl,money])
+                                                          elif exp > 50000 and lvl == 9:
+                                                                  lvl = 10
+                                                                  group.sendPost('You Leveled Up To Level 10!')
+                                                                  ranks[user] = json.dumps([exp,lvl,money])
+                                                          elif exp > 75000 and lvl == 10:
+                                                                  lvl = 11
+                                                                  group.sendPost('You levelled Up To Level 11!')
+                                                                  ranks[user] = json.dumps([exp,lvl,money])
+                                                          elif exp > 100500 and lvl == 11:
+                                                                  lvl = 12
+                                                                  group.sendPost('You levelled Up To Level 12!')
+                                                                  ranks[user] = json.dumps([exp,lvl,money])
+                                                          elif exp > 135000 and lvl == 12:
+                                                                  lvl = 13
+                                                                  group.sendPost('You Levelled Up To Level 13!')
+                                                                  ranks[user] = json.dumps([exp,lvl,money])
+                                                      else:
+                                                                  print('User Is Not Registered. Unable to verify Level')
                                                 if post.post.startswith("YourBotNameHere") or post.post.startswith("AddShortNameHere") or post.post.startswith("AddAnotherShortNameHere"):
                                                                 if user.lower() == "YourBotNameHere": return
                                                                 else:
@@ -171,6 +240,49 @@ class Bot(chlib.ConnectionManager):
                                                                                                                 group.sendPost(user+" You are currently Level "+str(lvl)+" You need "+str(neededxp)+" To reach the next level")
                                                                                                         else:
                                                                                                                 group.sendPost("I'm sorry, you aren't in the ranks database. Try typing .wl again")
+                                                                                  if cmd == "define" or cmd == "def" and len(args) > 0:
+                                                                                                        user = user.lower()
+                                                                                                        try:
+                                                                                                                    word, definition = args.split(" as ", 1)
+                                                                                                                    word = word.lower()
+                                                                                                        except:
+                                                                                                                    word = args.split()[0].lower()
+                                                                                                                    definition = ""
+                                                                                                        if len(word.split()) > 1:
+                                                                                                                    group.sendPost("Uhhh I think you dun goofed")
+                                                                                                                    return
+                                                                                                        if len(args.split()) > 1 and args.lower().split()[1] == "delete":
+                                                                                                                    if word in dictionary:
+                                                                                                                                definition, name = json.loads(dictionary[word])
+                                                                                                                                if name == user or self.getAccess(user) > 1:
+                                                                                                                                            del dictionary[word]
+                                                                                                                                            group.sendPost("I have removed the definition")
+                                                                                                                                            return
+                                                                                                                                else:
+                                                                                                                                            group.sendPost("<b>%s</b> I'm afraid I cannot do that." % user, True)
+                                                                                                                                            return
+                                                                                                                    else:
+                                                                                                                                group.sendPost("<b>%s</b> Has not yet been defined. You can define it by typing .define [WORD] as [Meaning]" % args, True)
+                                                                                                        elif len(definition) > 0: #if there's a colon somewhere
+                                                                                                                    if word in dictionary:
+                                                                                                                                definition, name = json.loads(dictionary[word])
+                                                                                                                                if self.getAccess(user) <= 1:
+                                                                                                                                            group.sendPost("<b>%s</b> Has already been defined. It cannot be redefined by you. Only staff or the owner can redefine it" % user.name.title(), True)
+                                                                                                                                else:
+                                                                                                                                            dictionary[word] = json.dumps([definition, user])
+                                                                                                                                            group.sendPost(word+" Was defined as "+definition+" By <b>"+user+"</b>", True)
+                                                                                                                    else:
+                                                                                                                                dictionary[word] = json.dumps([definition, user])
+                                                                                                                                group.sendPost(word + " was defined as " + definition + " by <b>"+ user + "</b>", True)
+                                                                                                        else:
+                                                                                                                    if word in dictionary:
+                                                                                                                                definition, name = json.loads(dictionary[word])
+                                                                                                                                group.sendPost("<b>" + word + "</b> Was Defined as " + definition + " By <b>" + name + "</b>", True)
+                                                                                                                    else:
+                                                                                                                                group.sendPost("<b>%s</b> Has not yet been defined. You can define it by typing <b>.define [%s] as [Meaning</b>" % (args, args), True)
+
+                                                                                  
+
                                                                                   if cmd == "bal":
                                                                                                         user=user.lower()
                                                                                                         if user in ranks:
@@ -186,23 +298,28 @@ class Bot(chlib.ConnectionManager):
                                                                                                                         exp,lvl,money = json.loads(ranks[user])
                                                                                                                         f.write(json.dumps([user, exp,lvl,money])+"\n")
                                                                                                         f.close()
+                                                                                                        print("[SAVE] Saving Definitions...")
+                                                                                                        f = open("filesystem/groupvariables/definitions.txt", "w")
+                                                                                                        for word in dictionary:
+                                                                                                                        definition, name = json.loads(dictionary[word])
+                                                                                                                        f.write(json.dumps([word, definition, name])+"\n")
+                                                                                                        f.close()
+                                                                                                        print("ALL Data Saved Successfully")
                                                                                                         group.sendPost("I have saved all data to the necessary files")
 
-                                                                                  if cmd == "img" or cmd == "gis" and len(args) > 0:
-                                                                                                        try:
-                                                                                                                search = args.replace(" ","_")
-                                                                                                                gdata = urlreq.urlopen("http://ajax.googleapis.com/ajax/services/search/images?v=1.0&q=%s" % "+".join(search))
-                                                                                                                xdat = gdata.read().decode()
-                                                                                                                x = re.finditer('"unescapedUrl":"(.+?)","url":"', xdat)
-                                                                                                                mes = []
-                                                                                                                for m in x:
-                                                                                                                        m = str(m.group(1))
-                                                                                                                        mes.append(m)
-                                                                                                                link = random.choice(mes)
-                                                                                                                link = link.replace("https","http")
-                                                                                                                group.sendPost('%s' % link)
-                                                                                                        except Exception as e:
-                                                                                                                print("\n%s\n" % e)
+                                                                                  if cmd == "img" or cmd == "gis" or cmd == "image" and len(args) > 0:
+                                                                                                        search = args.split()
+                                                                                                        GoogleApi = "AddYourGoogleCustomSearchAPIHere"
+                                                                                                        GoogleCX = "YouNeedToMakeACustomSearchEngineForThis"
+                                                                                                        url = urlreq.urlopen("https://www.googleapis.com/customsearch/v1?key="+GoogleApi+"&cx="+GoogleCX+"&searchType=image&fileType=jpg&num=1&q=%s" % "+".join(search))
+                                                                                                        imagedict = url.read().decode('utf-8')
+                                                                                                        data = json.loads(imagedict)
+                                                                                                        rest = []
+                                                                                                        for f in data["items"]:
+                                                                                                                rest.append(f)
+                                                                                                        image = random.choice(rest)
+                                                                                                        imagelink = image["link"]
+                                                                                                        group.sendPost(imagelink)
                                                                                   if cmd == "baka":
                                                                                                         group.sendPost("https://www.youtube.com/watch?v=diI4arYYfW0")
                                                                                   if cmd == "join" and len(args) > 0:
@@ -237,11 +354,6 @@ class Bot(chlib.ConnectionManager):
                                                                                                                         group.sendPost(random.choice(["Yesh","No way","More than likely","I cannot determine that","Find out yourself","I refuse to comment","It's obvious"]))
                                                                                                         else:
                                                                                                                         group.sendPost("This is the 8Ball command. To Use it, type .8b [Your Question here]")
-                                                                                  if cmd == "ecchi" or cmd == "Ecchi":
-                                                                                                        if group.name == "randompeople-random":
-                                                                                                                        group.sendPost(random.choice(["http://img12.deviantart.net/de2a/i/2014/102/a/d/hatsune_miku_ecchi_render__2_by_annechan34-d7e5obz.png","http://img10.deviantart.net/6b0d/i/2012/091/3/3/ecchi_render_by_katkoyox-d4un1x2.png","http://k41.kn3.net/taringa/2/0/2/8/2/8/13/takemikazuchi2/7B3.jpg?3236","http://orig12.deviantart.net/7e25/f/2013/178/4/2/ecchi_by_hsalacard-d6av9ie.jpg","http://www.renders-graphiques.fr/image/upload/normal/Ecchi_girl.png","http://orig15.deviantart.net/8571/f/2013/280/a/1/render_girl_anime_ecchi_by_arihirokushinada-d6pk17d.png"]))
-                                                                                                        else:
-                                                                                                                        group.sendPost("I am not allowed to post this here")
                                 def recvmsg(self, group, user, pm):
                                                 print("PM: "+user+": "+pm)
                                                 if pm.startswith("Axuf") or pm.startswith("axuf"):
