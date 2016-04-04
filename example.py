@@ -93,8 +93,8 @@ class Bot(chlib.ConnectionManager):
                                                 self.nColor = "8B6914"
 
                                 def getAccess(self, user):
-                                                if self.name == "denisstoff": return 4 #Just a rank option. You can edit this to allow Whitelisted users, etc
-                                                elif self.name == "AddYourNameHere": return 4
+                                                ifuser.lower() == "AddYourNameHere": return 4 #Just a rank option. You can edit this to allow Whitelisted users, etc
+                                                elif user.lower() == "AddYourNameHere": return 4
                                                 elif user.lower() in Masters: return 3
                                                 elif user.lower() in HalfM: return 2
                                                 elif user.lower() in whitelist: return 1
