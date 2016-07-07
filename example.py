@@ -213,7 +213,7 @@ class Bot(chlib.ConnectionManager):
                                                                                                         rest = []
                                                                                                         for f in data["items"]:
                                                                                                                 rest.append(f)
-                                                                                                        d = random.choice(rest)
+                                                                                                        d =rest[0]
                                                                                                         link = "http://www.youtube.com/watch?v=" + d["id"]["videoId"]
                                                                                                         videoid = d["id"]["videoId"]
                                                                                                         title = d["snippet"]["title"]
