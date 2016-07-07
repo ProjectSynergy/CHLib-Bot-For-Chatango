@@ -1,0 +1,6 @@
+{
+  "name": "Chlib-bot-for-chatango",
+  "tagline": "My take on a simple to use bot for chatango. This is my base source code only. Not the full bot",
+  "body": "# CHLib-Bot-For-Chatango<br>\r\nMy take on a simple to use bot for chatango. This is my base source code only. Not the full bot<br>\r\n\r\nUpdate Log:<br>\r\n      Added Youtube Command To Source code. You still need your own API Key for Youtube v3 to use the command<br>\r\n      Fixed a glitch where posts were being ignored. This was due to a bug in the prefix code and the bot trying to use the old prefix<br>\r\n      Added A new system of ranking, users now have levels, money and xp<br>\r\n      Added levels, definitions, new Google Image API<br>\r\n      \r\nTo do list:<br>\r\n      Add Leaderboards<br>\r\n      Add a bot personality<br>\r\n      Allow the bot to use xmpp<br>\r\n      Give the bot a way to use notification messages for use with lottery, notes between friends, etc.<br>\r\n      Russian Roulette game mode<br>\r\n      Hangman game mode<br>\r\n      Clean up file system and source code to make it run smoothly.<br>\r\n\r\nIf you happen to find any bugs with this bot please start an issue request and I will get back to you asap.<br>\r\n",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
