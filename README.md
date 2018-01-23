@@ -8,12 +8,15 @@ Update Log:<br>
       Added levels, definitions, new Google Image API<br>
       
 To do list:<br>
-      Add Leaderboards<br>
-      Add a bot personality<br>
+      Add Leaderboards// Done Pending Update<br>
+      Add a bot personality// Done Pending Update<br>
       Allow the bot to use xmpp<br>
-      Give the bot a way to use notification messages for use with lottery, notes between friends, etc.<br>
-      Russian Roulette game mode<br>
+      Easier way to launch the Python app.// Done Pending Update<br>
+      Give the bot a way to use notification messages for use with lottery, notes between friends, etc. //  Done Pending Update<br>
+      Russian Roulette game mode //Done Pending Update<br>
       Hangman game mode<br>
-      Clean up file system and source code to make it run smoothly.<br>
+      Pokemon Role Playing Game. // In Progress<br>
+      Pet System. // In Progress<br>
+      Clean up file system and source code to make it run smoothly.// Done Pending Update<br>
 
 If you happen to find any bugs with this bot please start an issue request and I will get back to you asap.<br>
